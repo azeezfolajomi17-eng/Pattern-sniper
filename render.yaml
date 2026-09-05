@@ -1,0 +1,30 @@
+services:
+  - type: web
+    name: pattern-scanner-bot
+    runtime: python
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: python -m app.main
+    healthCheckPath: /
+    autoDeploy: true
+    envVars:
+      - key: TELEGRAM_BOT_TOKEN
+        sync: false          # set this in the Render dashboard
+      - key: TELEGRAM_CHAT_ID
+        sync: false
+      - key: PYTHON_VERSION
+        value: "3.12.6"
+      - key: SCAN_INTERVAL_SECONDS
+        value: "60"
+      - key: TIMEFRAMES
+        value: "15m,1h,4h"
+      - key: MIN_SCORE
+        value: "82"
+      - key: MIN_RR
+        value: "1.8"
+      - key: COOLDOWN_BARS
+        value: "6"
+      - key: HTF_REQUIRED
+        value: "true"
+      - key: STATE_FILE
+        value: "/tmp/state.json"
